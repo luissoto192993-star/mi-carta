@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi Angelita :( </title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Contenedor de la música de fondo (Pon tu canción aquí) -->
+    <audio id="bg-music">
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- BOTÓN FLOTANTE DE MÚSICA -->
+    <button id="music-btn" class="music-toggle hidden" onclick="toggleMusic()">🔊</button>
+
+    <!-- Contenedor para los pétalos cayendo -->
+    <div id="petals-container"></div>
+
+    <!-- Fondo animado con partículas -->
+    <div class="bg-animation">
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+        <div class="circle circle3"></div>
+    </div>
+
+    <!-- PANTALLA 1: Inicio -->
+    <section id="step-1" class="screen active">
+        <div class="content-wrapper">
+            <div class="glass-container">
+                <h1>Tengo algo que decirte...</h1>
+                <p>Descubre lo que he preparado para ti...</p>
+                <button class="glow-on-hover" onclick="startExperience()">Comenzar 🌟</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PANTALLA 2: La Carta -->
+    <section id="step-2" class="screen hidden">
+        <div class="content-wrapper">
+            <div class="letter-container">
+                <div class="letter">
+                    <h2>Oli </h2>
+                    <p>Quería tomarme un momento para hacerte esta pequeña sorpresa. Espero que todo salga bien para ti hoy, mañana y siempre mi niña. No pude hacer mucho por ti hoy, quisiera al menos haberte hecho sacar una sonrisa :c.</p>
+                    <p>Te deseo la mejor de las suertes mañana en el trabajo, cuídate mucho y hablaremos cuando estés libre para llamarnos y divertirnos juntos.</p>
+                    <p class="signature">Con cariño Luisito ❤️</p>
+                </div>
+                <button class="glow-on-hover mt-20" onclick="nextStep(2, 3)">Siguiente sorpresa 🍫</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PANTALLA 3: Los Chocolates y Videos -->
+    <section id="step-3" class="screen hidden">
+        <div class="content-wrapper">
+            <h2 class="title-white" id="choco-title">Abre el primer chocolate...</h2>
+            <div class="chocolates-wrapper">
+                
+                <!-- Chocolate Negro (Video 1) -->
+                <div class="flip-card" id="choco-1" onclick="flipCard(1)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front dark-chocolate">
+                            <div class="choco-squares"></div>
+                            <p>Chocolate<br>Negro</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <!-- Pon tu primer video aquí -->
+                            <video id="video-1" controls>
+                                <source src="video.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chocolate Blanco (Video 2) -->
+                <div class="flip-card locked" id="choco-2" onclick="flipCard(2)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front white-chocolate">
+                            <div class="choco-squares"></div>
+                            <p>Chocolate<br>Blanco</p>
+                            <span class="candado">🔒 Bloqueado</span>
+                        </div>
+                        <div class="flip-card-back">
+                            <!-- Pon tu segundo video aquí -->
+                            <video id="video-2" controls>
+                                <source src="video2.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <button id="btn-to-mail" class="glow-on-hover mt-20 hidden" onclick="nextStep(3, 4)">Ir al Buzón 💌</button>
+        </div>
+    </section>
+
+    <!-- PANTALLA 4: Buzón de Mensajes -->
+    <section id="step-4" class="screen hidden">
+        <div class="content-wrapper">
+            <div class="glass-container mailbox">
+                <h2>📫 Buzón de Mensajes jsjsj</h2>
+                <p>Dime todo lo que sientas :)</p>
+                <input type="text" id="senderName" placeholder="Tu nombre..." required>
+                <textarea id="senderMessage" rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
+                <button class="glow-on-hover" onclick="sendMessage()">Enviar Mensaje 🚀</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+/* Variables de colores y configuraciones */
+:root {
+    --purple-dark: #2c003e;
+    --purple-mid: #512b58;
+    --purple-light: #fe346e;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+body {
+    background: linear-gradient(-45deg, var(--purple-dark), var(--purple-mid), #3f0071, var(--purple-light));
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: white; 
+    height: 100vh; 
+    width: 100vw;
+    overflow: hidden; /* Evita scroll en el fondo general */
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* BOTÓN DE MÚSICA FLOTANTE */
+.music-toggle {
+    position: fixed; top: 20px; right: 20px; z-index: 10000;
+    background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border); color: white;
+    font-size: 1.5rem; width: 55px; height: 55px; border-radius: 50%;
+    cursor: pointer; display: flex; justify-content: center; align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: 0.3s ease;
+}
+.music-toggle:hover { background: rgba(255, 255, 255, 0.4); transform: scale(1.1); }
+
+/* PÉTALOS CAYENDO */
+#petals-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
+.petal {
+    position: absolute; top: -10%; width: 15px; height: 15px;
+    background: linear-gradient(to bottom, #ff99cc, #ff3366);
+    border-radius: 150% 0 150% 0; transform: rotate(45deg);
+    box-shadow: 0 0 10px rgba(255, 51, 102, 0.5);
+    animation: fall linear infinite, sway ease-in-out infinite alternate;
+}
+@keyframes fall { 0% { top: -10%; } 100% { top: 110%; } }
+@keyframes sway { 0% { transform: rotate(45deg) translateX(0px); } 100% { transform: rotate(90deg) translateX(50px); } }
+
+/* Partículas flotantes del fondo */
+.bg-animation { position: absolute; width: 100%; height: 100%; z-index: -1; }
+.circle { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.1); animation: float 10s infinite ease-in-out alternate; }
+.circle1 { width: 300px; height: 300px; top: -100px; left: -100px; }
+.circle2 { width: 200px; height: 200px; bottom: 50px; right: 50px; animation-duration: 12s; }
+.circle3 { width: 150px; height: 150px; bottom: -50px; left: 30%; animation-duration: 8s; }
+@keyframes float { 0% { transform: translateY(0px) scale(1); } 100% { transform: translateY(-50px) scale(1.1); } }
+
+/* SISTEMA DE PANTALLAS (Ahora con Scroll para celulares) */
+.screen {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    overflow-y: auto; overflow-x: hidden; /* Permite scroll vertical */
+    display: flex; flex-direction: column; 
+    transition: opacity 1s, transform 1s;
+}
+.hidden { opacity: 0; pointer-events: none; transform: scale(0.9); }
+.active { opacity: 1; pointer-events: auto; transform: scale(1); }
+
+.content-wrapper {
+    margin: auto; /* Centra el contenido verticalmente en PC */
+    width: 100%; display: flex; flex-direction: column; align-items: center;
+    padding: 80px 20px 40px; /* Padding top de 80px para evitar el botón de música */
+}
+
+/* Glassmorphism y Textos */
+.glass-container { background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); max-width: 500px; width: 90%; }
+.glass-container h1 { font-size: 2.5rem; margin-bottom: 10px; }
+.glass-container p { font-size: 1.2rem; margin-bottom: 25px; opacity: 0.9; }
+
+/* Botones */
+.glow-on-hover { width: 220px; height: 50px; border: none; outline: none; color: #fff; background: #111; cursor: pointer; position: relative; z-index: 0; border-radius: 10px; font-size: 1.1rem; font-weight: 600; transition: 0.3s; }
+.glow-on-hover:before { content: ''; background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000); position: absolute; top: -2px; left:-2px; background-size: 400%; z-index: -1; filter: blur(5px); width: calc(100% + 4px); height: calc(100% + 4px); animation: glowing 20s linear infinite; opacity: 0; transition: opacity .3s ease-in-out; border-radius: 10px; }
+.glow-on-hover:active { color: #000; }
+.glow-on-hover:active:after { background: transparent; }
+.glow-on-hover:hover:before { opacity: 1; }
+.glow-on-hover:after { z-index: -1; content: ''; position: absolute; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px); left: 0; top: 0; border-radius: 10px; }
+@keyframes glowing { 0% { background-position: 0 0; } 50% { background-position: 400% 0; } 100% { background-position: 0 0; } }
+
+/* La Carta */
+.letter-container { display: flex; flex-direction: column; align-items: center; }
+.letter { background: #fffdf5; color: #333; padding: 40px; border-radius: 5px; max-width: 500px; width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); font-family: 'Dancing Script', cursive; font-size: 1.3rem; line-height: 1.5; transform: rotate(-2deg); }
+.letter h2 { font-size: 2.5rem; margin-bottom: 10px; color: #8e44ad; }
+.letter p { margin-bottom: 10px; }
+.letter .signature { text-align: right; margin-top: 20px; font-weight: bold; font-size: 1.5rem;}
+
+/* Chocolates */
+.title-white { font-size: 2rem; margin-bottom: 30px; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); text-align: center; transition: 0.5s; }
+.chocolates-wrapper { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; }
+.flip-card { background-color: transparent; width: 250px; height: 350px; perspective: 1000px; cursor: pointer; transition: 0.5s;}
+.flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s; transform-style: preserve-3d; }
+.flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+.flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 15px; box-shadow: 0 15px 25px rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; flex-direction: column; }
+.flip-card-front p { font-size: 1.5rem; font-weight: bold; margin-top: 20px; text-transform: uppercase; letter-spacing: 2px;}
+.dark-chocolate { background: linear-gradient(135deg, #2b1408, #4a2511); color: #d4a373; border: 2px solid #1a0c05; }
+.white-chocolate { background: linear-gradient(135deg, #fdfbf7, #eaddc5); color: #8b5a2b; border: 2px solid #d4c3a3; }
+.flip-card-back { background: #000; transform: rotateY(180deg); overflow: hidden; }
+.flip-card-back video { width: 100%; height: 100%; object-fit: cover; }
+.locked { filter: grayscale(100%) brightness(0.6); pointer-events: none; }
+.candado { display: none; }
+.locked .candado { display: block; margin-top: 10px; font-size: 1rem; color: #ff3366; font-weight: bold; background: rgba(0,0,0,0.1); padding: 5px 10px; border-radius: 5px; }
+
+/* Buzón */
+.mailbox input, .mailbox textarea { width: 100%; padding: 12px; margin: 10px 0; border: none; border-radius: 8px; background: rgba(255, 255, 255, 0.2); color: white; font-size: 1rem; outline: none; }
+.mailbox input::placeholder, .mailbox textarea::placeholder { color: #ddd; }
+.mailbox input:focus, .mailbox textarea:focus { background: rgba(255, 255, 255, 0.3); }
+.mt-20 { margin-top: 20px; }
+
+/* ========================================= */
+/*       ADAPTACIÓN A MÓVILES Y TABLETS      */
+/* ========================================= */
+
+/* TABLETS */
+@media (max-width: 768px) {
+    .glass-container h1 { font-size: 2rem; }
+    .letter { font-size: 1.1rem; padding: 30px; }
+    .flip-card { width: 220px; height: 320px; } /* Chocolates un poco más chicos */
+}
+
+/* TELÉFONOS MÓVILES */
+@media (max-width: 480px) {
+    .glass-container h1 { font-size: 1.7rem; }
+    .glass-container p { font-size: 1rem; }
+    
+    .music-toggle { top: 10px; right: 10px; width: 45px; height: 45px; font-size: 1.2rem; }
+    .content-wrapper { padding-top: 70px; } /* Ajuste por el botón de música */
+
+    .letter { font-size: 1.1rem; padding: 25px; transform: rotate(-1deg); width: 95%; }
+    .letter h2 { font-size: 2rem; }
+    
+    .title-white { font-size: 1.5rem; }
+    
+    /* En teléfonos los chocolates se ponen uno debajo del otro */
+    .chocolates-wrapper { flex-direction: column; gap: 20px; }
+    .flip-card { width: 260px; height: 350px; } 
+}
